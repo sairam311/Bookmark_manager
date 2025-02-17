@@ -1,0 +1,30 @@
+# CometForge - Bookmark Manager
+
+CometForge is a simple web-based bookmark manager built using the Django framework. It allows users to:
+
+* Add new bookmarks (website name and URL).
+* View a list of their bookmarks.
+* Delete existing bookmarks.
+* Update existing bookmarks.
+* Mark bookmarks as favorites.
+* Filter and view only favorite bookmarks.
+
+## Features
+
+* **Add Bookmarks:**  Easily add new website links with a name and URL.
+* **View Bookmarks:**  See all your saved bookmarks in a table format.
+* **Update Bookmarks:** Edit the name or URL of existing bookmarks.
+* **Delete Bookmarks:** Remove bookmarks you no longer need.
+* **Favorite Bookmarks:** Mark important bookmarks as favorites for quick access.
+* **Filter Favorites:** View only your favorite bookmarks with a single click.  Toggle back to view all bookmarks.
+* **User-Friendly Interface:**  Built with Bootstrap for a clean and responsive design.
+
+## Technologies Used
+
+* **Python:** The core programming language.
+* **Django:** The web framework.
+* **HTML:** For structuring the web pages.
+* **CSS:** For styling the web pages.
+* **JavaScript:** For interactive elements (filtering favorites).
+* **Bootstrap:** For styling and layout.
+* **Database:** SQLite

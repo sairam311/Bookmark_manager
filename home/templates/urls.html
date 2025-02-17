@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block start %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .text {
+        color: green;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container mt-5">
+
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="text text-center"> CometForge </h2>
+        <br>
+        <h3>BookMark Manager</h3>
+        <hr>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Website Name</label>
+            <input name="name" type="text" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">URL </label>
+            <input name="url" type="url" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add URL</button>
+    </form>
+
+    <hr>
+
+    <button id="viewFavorites" class="btn btn-primary mt-3">View Favorites</button>
+
+    <table class="table mt-5" id="urlTable">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Website Name</th>
+                <th scope="col">URL</th>
+                <th scope="col">Actions</th>
+                <th scope="col">Favorite</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for url in urls %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{url.name}}</td>
+                <td><a href="{{url.url}}" target="_blank" class="btn btn-warning">View</a></td>
+                <td>
+                    <a href="/delete_url/{{url.id}}" class="btn btn-danger m-2">Delete</a>
+                    <a href="/update_url/{{url.id}}" class="btn btn-success">Update</a>
+                </td>
+                <td>
+                    <a href="/favorite_url/{{url.id}}" class="btn btn-info">
+                        {% if url.favorite %}  Unfavorite
+                        {% else %}
+                            Favorite
+                        {% endif %}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    const viewFavoritesButton = document.getElementById('viewFavorites');
+    const urlTable = document.getElementById('urlTable');
+    const rows = urlTable.getElementsByTagName('tr');
+    let showingAll = true; // Keep track of the current state
+
+    viewFavoritesButton.addEventListener('click', () => {
+        showingAll = !showingAll; // Toggle the state
+
+        for (let i = 1; i < rows.length; i++) {
+            const row = rows[i];
+            const favoriteCell = row.cells[4];
+            const isFavorite = favoriteCell.querySelector('.btn-info').textContent.trim() === 'Unfavorite';
+
+            if (showingAll) {
+                row.style.display = ''; // Show all rows
+                viewFavoritesButton.textContent = "View Favorites"; //Change button text
+            } else {
+                if (!isFavorite) {
+                    row.style.display = 'none';
+                    viewFavoritesButton.textContent = "View All"; //Change button text
+                } else {
+                    row.style.display = '';
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}
